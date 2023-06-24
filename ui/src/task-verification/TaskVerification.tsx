@@ -16,8 +16,13 @@ function TaskVerification() {
     const contract = new ethers.Contract(process.env.REACT_APP_CONTRACT_ADDRESS || "", contractAbi, provider);
     const contractWithSigner = contract.connect(signer);
 
-    const tx = await contractWithSigner.createMember(ethAddress);
-    console.log(tx);
+    if (task === "1") {
+      const tx = await contractWithSigner.createMember(ethAddress);
+      console.log(tx);
+    } else {
+      const tx = await contractWithSigner.redeemTask(parseInt(task), ethAddress);
+      console.log(tx);
+    }
 
     alert("Transaction sent!");
   };
