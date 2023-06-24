@@ -1,0 +1,274 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "person",
+				"type": "address"
+			}
+		],
+		"name": "createMember",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "eventName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "eventType",
+				"type": "string"
+			},
+			{
+				"internalType": "address",
+				"name": "validator",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "reward",
+				"type": "uint256"
+			}
+		],
+		"name": "createTask",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			}
+		],
+		"name": "redeemDonation",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "taskID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "member",
+				"type": "address"
+			}
+		],
+		"name": "redeemTask",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "completedTasks",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "member",
+				"type": "address"
+			}
+		],
+		"name": "fetchEventHistory",
+		"outputs": [
+			{
+				"internalType": "uint256[]",
+				"name": "",
+				"type": "uint256[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "member",
+				"type": "address"
+			}
+		],
+		"name": "fetchMemberReputation",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "uint256",
+						"name": "technology",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "governance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "finance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "general",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "donation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "donationThreshold",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "redeemableAmount",
+						"type": "uint256"
+					}
+				],
+				"internalType": "struct TDAO.Member",
+				"name": "",
+				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "isOwner",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "Members",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "technology",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "governance",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "finance",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "general",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "donation",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "donationThreshold",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "redeemableAmount",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "Tasks",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "eventName",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "eventType",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "eventID",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "validator",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "reward",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]
