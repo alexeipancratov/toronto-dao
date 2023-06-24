@@ -6,7 +6,7 @@ import contractAbi from "../abis/abi.json";
 
 function TaskVerification() {
   const [ethAddress, setEthAddress] = useState("");
-  const [task, setTask] = useState("1"); // [1, 2, 3, 4]
+  const [task, setTask] = useState("1");
   const { ethereum } = useMetaMask();
 
   const sendTransaction = async () => {
