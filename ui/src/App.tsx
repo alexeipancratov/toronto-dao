@@ -1,15 +1,30 @@
 import React from 'react';
 import './App.css';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Col, Container, Nav, NavDropdown, Navbar, Row } from 'react-bootstrap';
+import TaskVerification from './task-verification/TaskVerification';
 
 function App() {
   return (
-    <Container fluid>
-      <Row>
-        <Col>1 of 1</Col>
-        <Col>2 of 2</Col>
-      </Row>
-    </Container>
+    <>
+      <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="#home">Toronto DAO</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="#home">Home</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      <Container fluid className='header'>
+        <Row>
+          <Col>
+            <TaskVerification />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
