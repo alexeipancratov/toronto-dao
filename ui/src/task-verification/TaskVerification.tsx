@@ -51,7 +51,7 @@ function TaskVerification() {
         </Form.Group>
 
         <div className='text-center qr-code'>
-          <img src="./qr-code.png" className="img-fluid" alt="..." width="100"></img>
+          <img src="./beginner.jpeg" className="img-fluid" alt="..." width="100"></img>
         </div>
 
         <section className='main-section'>

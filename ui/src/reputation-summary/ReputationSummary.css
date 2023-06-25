@@ -1,0 +1,9 @@
+.category-icon {
+    display: inline-block;
+    font-size: 3em;
+}
+
+.category-name {
+    display: inline-block;
+    margin-left: 10px;
+}
