@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.20+commit.a1b79de6"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -800,9 +800,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"EthGlobal/smart-contract/member.sol": "TDAO"
+			"EthGlobal/smart-contract/TDAO.sol": "TDAO"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -966,7 +966,23 @@
 				"dweb:/ipfs/QmcEW85JRzvDkQggxiBBLVAasXWdkhEysqypj9EaB6H2g6"
 			]
 		},
-		"EthGlobal/smart-contract/experience.sol": {
+		"EthGlobal/smart-contract/DAOmember.sol": {
+			"keccak256": "0x35f0eb4afd7a5a77354c34368b53757818f4026b5f421e55fbb4543519fb0c07",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://a9ee40446cd386bea57c919f1dd1208737229659d4a997b9108556bfdd5c3ba7",
+				"dweb:/ipfs/QmWJTcyqrZ4b1JRaLW77oAeC55DrjMpDCLC57stquAKAy5"
+			]
+		},
+		"EthGlobal/smart-contract/TDAO.sol": {
+			"keccak256": "0xa67bd1e2093948ea15755e366ed990002c9803d718b749944fd1501ccd9eef24",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6ab5f3354c890368cf50b10a9409a828303673dab704d2868caf333f5b2a2dd9",
+				"dweb:/ipfs/QmXpimu2uk7kbGeZ4kAfygu164q5aiVv3Thbfc2rUfgKz6"
+			]
+		},
+		"EthGlobal/smart-contract/experienceTokens.sol": {
 			"keccak256": "0x76483db2764ae887cd31ac91ae4ea3de70bcef62fb5c5bff4075889d622178a2",
 			"license": "MIT",
 			"urls": [
@@ -974,12 +990,12 @@
 				"dweb:/ipfs/QmadQJfRuV9WndbSbXPHfpzqq8YPJgeyAGHk3wF5GaD3nK"
 			]
 		},
-		"EthGlobal/smart-contract/member.sol": {
-			"keccak256": "0xf0b890b173b580a7a607293680f0266dc4b9cf91c65a87602692fa991e039900",
+		"EthGlobal/smart-contract/ownable.sol": {
+			"keccak256": "0x419c29876348e5f7146667aeea01182593bf87ae3f2a15bdd5ce03fda93ab6a7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://909039cfb023cd012c20982c5ebc0280b4251132b0526747e54cdb881a827a6f",
-				"dweb:/ipfs/QmTH9zXkZDs52Sq4CKNGdBPGBKXDkHGcSshq2rUfeW72Nc"
+				"bzz-raw://b4abd7287c0add8ecf207235f97ab13bd566ddeae8ecb51d6bb78b7ce9f5af1a",
+				"dweb:/ipfs/QmRoJzuYznav8zN8kN112drMsqhounuCwy9xc3A4T8gPdk"
 			]
 		},
 		"https://github.com/erc6551/reference/blob/main/src/lib/ERC6551AccountLib.sol#L11": {

@@ -2,10 +2,9 @@
 pragma solidity ^0.8.11;
 
 import "https://github.com/erc6551/reference/blob/main/src/lib/ERC6551AccountLib.sol#L11";
-import "./experience.sol";
-import "./NFTMember721.sol";
+import "./experienceTokens.sol";
+import "./DAOmember.sol";
 import "./ownable.sol";
-
 contract TDAO is Ownable {
 
     // for each tasks

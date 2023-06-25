@@ -3,46 +3,9 @@ pragma solidity ^0.8.11;
 
 import "https://github.com/erc6551/reference/blob/main/src/lib/ERC6551AccountLib.sol#L11";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./experience.sol";
-
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
-
-contract DAOMember is ERC721URIStorage {
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIds;
-
-    constructor() ERC721("DAOMember", "DAOMem") {}
-
-    function awardMember(address player, string memory tokenURI)
-        public
-        returns (uint256)
-    {
-        uint256 newItemId = _tokenIds.current();
-        _mint(player, newItemId);
-        _setTokenURI(newItemId, tokenURI);
-
-        _tokenIds.increment();
-        return newItemId;
-    }
-}
-
-contract Ownable {
-    address private owner;
-
-    constructor () {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner () {
-        require(isOwner(), "you are not the owner");
-        _;
-    }
-
-    function isOwner() public view returns (bool){
-        return msg.sender == owner;
-    }
-}
+import "./experienceTokens.sol";
+import "./DAOmember.sol";
+import "./ownable.sol";
 
 contract TDAO is Ownable, DAOMember {
 
