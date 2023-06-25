@@ -642,11 +642,11 @@
 			]
 		},
 		"EthGlobal/smart-contract/member.sol": {
-			"keccak256": "0x4ec50f25e5f0258653112f4777e8d0a71288166f62eca53b8daa55cb1b9328da",
+			"keccak256": "0xf0b890b173b580a7a607293680f0266dc4b9cf91c65a87602692fa991e039900",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://1560b608c5b58240c3d59b5eee855a0260f476d6866a2dc5f6d36849d3c0e124",
-				"dweb:/ipfs/QmZ8tpnzmSpCvzgGUQUxJ3zkDxZLNdoqf2XxNFgjm3vzTY"
+				"bzz-raw://909039cfb023cd012c20982c5ebc0280b4251132b0526747e54cdb881a827a6f",
+				"dweb:/ipfs/QmTH9zXkZDs52Sq4CKNGdBPGBKXDkHGcSshq2rUfeW72Nc"
 			]
 		},
 		"https://github.com/erc6551/reference/blob/main/src/lib/ERC6551AccountLib.sol#L11": {
