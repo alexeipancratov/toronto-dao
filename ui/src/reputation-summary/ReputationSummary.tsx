@@ -2,9 +2,11 @@ import { useMetaMask } from "metamask-react";
 import { useState } from "react";
 import { Badge, Button, Col, Form, ProgressBar, Row } from "react-bootstrap";
 import "./ReputationSummary.css";
+import { AuthType, SismoConnectButton, SismoConnectConfig, SismoConnectResponse } from "@sismo-core/sismo-connect-react";
 
 function ReputationSummary() {
   const [ethAddress, setEthAddress] = useState("");
+  const [formIsSubmitted, setFormIsSubmitted] = useState(false);
   const { ethereum } = useMetaMask();
 
   const onAddressChange = (e: any) => {
@@ -12,7 +14,13 @@ function ReputationSummary() {
   }
 
   const onFormSubmit = (e: any) => {
-    return false;
+    setFormIsSubmitted(true);
+    e.preventDefault();
+  };
+
+  const config: SismoConnectConfig = {
+    // you will need to get an appId from the Factory
+    appId: "0xa56b3f764eb6677be415e798ff52ede5",
   };
 
   return (
@@ -35,37 +43,23 @@ function ReputationSummary() {
         </div>
       </Form>
       <section className='main-section mt-2'>
+        {formIsSubmitted && (
+          <>
+            <ProgressBar now={60} label={'Technology'} variant="success" />
+            <ProgressBar now={30} label={'Governance'} variant="info" className="mt-2" />
+            <ProgressBar now={80} label={'Finance'} variant="warning" className="mt-2" />
+            <ProgressBar now={90} label={'General'} variant="danger" className="mt-2" />
+          </>
+        )}
 
-
-        <Row>
-          <Col>
-            <span className="category-icon">🤖</span>
-            <span className="category-name">Technology</span>
-          </Col>
-          <Col>
-            <Badge bg="primary">123</Badge>
-          </Col>
-        </Row>
-        <Row>
-          <Col>img</Col>
-          <Col>Technology</Col>
-          <Col><Badge bg="secondary">123</Badge></Col>
-        </Row>
-        <Row>
-          <Col>img</Col>
-          <Col>Technology</Col>
-          <Col><Badge bg="secondary">123</Badge></Col>
-        </Row>
-        <Row>
-          <Col>img</Col>
-          <Col>Technology</Col>
-          <Col><Badge bg="secondary">123</Badge></Col>
-        </Row>
-
-        <ProgressBar now={60} label={'Technology'} variant="success" />
-        <ProgressBar now={30} label={'Governance'} variant="info" className="mt-2" />
-        <ProgressBar now={80} label={'Finance'} variant="warning" className="mt-2" />
-        <ProgressBar now={90} label={'General'} variant="danger" className="mt-2" />
+        <SismoConnectButton
+          config={config}
+          auth={{ authType: AuthType.EVM_ACCOUNT }}
+          onResponseBytes={async (bytes: string) => {
+            //Send the response to your contract to verify it
+            //thanks to the @sismo-core/sismo-connect-solidity package
+          }}
+        />
       </section>
     </>
   );
