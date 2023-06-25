@@ -2,13 +2,16 @@
 pragma solidity ^0.8.11;
 
 import "https://github.com/erc6551/reference/blob/main/src/lib/ERC6551AccountLib.sol#L11";
+import "https://github.com/sismo-core/sismo-connect-onchain-verifier/blob/main/src/libs/SismoLib.sol"; 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./experienceTokens.sol";
+import "./experience.sol";
 import "./DAOmember.sol";
 import "./ownable.sol";
 
-contract TDAO is Ownable, DAOMember {
+contract TDAO is Ownable, DAOMember, SismoConnect {
 
+    // call SismoConnect constructor with your appId
+    constructor(bytes16 appId) SismoConnect(buildConfig(appId)) {}
 
     GovToken govToken;
     FinToken finToken;
@@ -42,6 +45,27 @@ contract TDAO is Ownable, DAOMember {
     mapping(uint => Task) public Tasks;
 
     ////////////////////////////////////////////////////////////////////////////////
+    // Sismo connect
+
+    function login(bytes memory sismoConnectResponse) public returns (bool) {    
+        SismoConnectVerifiedResult memory result = verify({
+            responseBytes: sismoConnectResponse,
+            // we want users to prove that they own a Sismo Vault
+            // we are recreating the auth request made in the frontend to be sure that 
+            // the proof provided in the response is valid with respect to this auth request
+            auth: buildAuth({authType: AuthType.EVM_ACCOUNT})       
+        });
+    
+        // if the proofs is valid, we can take the userId from the verified result
+        // in this case the userId is the vaultId (since we used AuthType.VAULT in the auth request) 
+        // it is the anonymous identifier of a user's vault for a specific app 
+        // --> vaultId = hash(userVaultSecret, appId)
+        // uint256 EVMID = SismoConnectHelper.getUserId(result, AuthType.EVM_ACCOUNT);
+        
+        return true;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////
     // member functions
 
     uint private globalTokenID = 0;
@@ -58,8 +82,8 @@ contract TDAO is Ownable, DAOMember {
     function createMember(address to) public onlyOwner{
         DAOMember.awardMember(to, "Welcome to Toronto DAOs"); // change to Json for Nouns
         Members[to].wallet6551 = ERC6551AccountLib.computeAddress(0x02101dfB77FDE026414827Fdc604ddAF224F0921, 
-        0xd8b934580fcE35a11B58C6D73aDeE468a2833fa8, 
-        100, 0xf8e81D47203A594245E36C48e151709F0C19fBe8, globalTokenID, 0); // change tokencontract after deployed
+        0xb7EC2fad3240022Aa6b014917A61E291298cE483, 
+        100, 0x974A40f2Ca32E888e375FA984620fC696EE9F3f0, globalTokenID, 0); // change tokencontract after deployed
         Members[to].redeemLimit = 100; 
         globalTokenID ++;
     }
