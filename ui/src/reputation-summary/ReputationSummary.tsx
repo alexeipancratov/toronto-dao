@@ -25,7 +25,7 @@ function ReputationSummary() {
 
   return (
     <>
-      <h1 className='text-left'>Verify Task</h1>
+      <h1 className='text-left'>Reputation Summary</h1>
       <Form onSubmit={onFormSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>ETH Address</Form.Label>
@@ -52,14 +52,16 @@ function ReputationSummary() {
           </>
         )}
 
-        <SismoConnectButton
-          config={config}
-          auth={{ authType: AuthType.EVM_ACCOUNT }}
-          onResponseBytes={async (bytes: string) => {
-            //Send the response to your contract to verify it
-            //thanks to the @sismo-core/sismo-connect-solidity package
-          }}
-        />
+        <div className="mt-2">
+          <SismoConnectButton
+            config={config}
+            auth={{ authType: AuthType.EVM_ACCOUNT }}
+            onResponseBytes={async (bytes: string) => {
+              //Send the response to your contract to verify it
+              //thanks to the @sismo-core/sismo-connect-solidity package
+            }}
+          />
+        </div>
       </section>
     </>
   );

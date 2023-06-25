@@ -84,7 +84,7 @@ contract TDAO is Ownable, DAOMember, SismoConnect {
         Members[to].wallet6551 = ERC6551AccountLib.computeAddress(0x02101dfB77FDE026414827Fdc604ddAF224F0921, 
         0xb7EC2fad3240022Aa6b014917A61E291298cE483, 
         100, 0x974A40f2Ca32E888e375FA984620fC696EE9F3f0, globalTokenID, 0); // change tokencontract after deployed
-        Members[to].redeemLimit = 100; 
+        Members[to].redeemLimit = 100;
         globalTokenID ++;
     }
     
