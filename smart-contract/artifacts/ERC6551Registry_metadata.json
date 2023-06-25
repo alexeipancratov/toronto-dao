@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.20+commit.a1b79de6"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -150,9 +150,9 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"EthGlobal/smart-contract/test.sol": "ERC6551Registry"
+			"EthGlobal/smart-contract/example6551registry.sol": "ERC6551Registry"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -164,7 +164,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"EthGlobal/smart-contract/test.sol": {
+		"EthGlobal/smart-contract/example6551registry.sol": {
 			"keccak256": "0x5eb3c627e16c3803cc32d96cc21ac400bc25bb59c63ed753b0be2c30f1aa0cce",
 			"license": "MIT",
 			"urls": [
