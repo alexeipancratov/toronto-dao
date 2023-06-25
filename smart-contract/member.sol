@@ -1,6 +1,32 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
+import "https://github.com/erc6551/reference/blob/main/src/lib/ERC6551AccountLib.sol#L11";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./experience.sol";
+
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/utils/Counters.sol";
+
+contract DAOMember is ERC721URIStorage {
+    using Counters for Counters.Counter;
+    Counters.Counter private _tokenIds;
+
+    constructor() ERC721("DAOMember", "DAOMem") {}
+
+    function awardMember(address player, string memory tokenURI)
+        public
+        returns (uint256)
+    {
+        uint256 newItemId = _tokenIds.current();
+        _mint(player, newItemId);
+        _setTokenURI(newItemId, tokenURI);
+
+        _tokenIds.increment();
+        return newItemId;
+    }
+}
+
 contract Ownable {
     address private owner;
 
@@ -18,13 +44,21 @@ contract Ownable {
     }
 }
 
-contract TDAO is Ownable {
+contract TDAO is Ownable, DAOMember {
 
+
+    GovToken govToken;
+    FinToken finToken;
+    GeneralToken generalToken;
+    TechToken techToken;
+    DonationToken donationToken;
+
+    enum experienceType{technology, finance, governance, general, donation}
 
     // for each tasks
     struct Task{
         string eventName;
-        string eventType;
+        TDAO.experienceType eventType;
         uint eventID;
         address validator;
         uint reward;
@@ -33,16 +67,8 @@ contract TDAO is Ownable {
     
     // member struct for points
     struct Member{
-        // points
-        uint technology;
-        uint governance;
-        uint finance;
-        uint general;
-        
-        // for donations
-        uint donation;
-        uint donationThreshold;
-        uint redeemableAmount;
+        address wallet6551;
+        uint redeemLimit;
     }
 
     // a mapping of all members on the DAO
@@ -52,52 +78,79 @@ contract TDAO is Ownable {
     // mapping for tasks 
     mapping(uint => Task) public Tasks;
 
-    // emit information for processing
-    // event memberStat(uint technology, uint governance, uint finance, uint donation);
-    // event taskDetail(string eventName, string eventType, uint eventID, address validator, uint reward);
-
     ////////////////////////////////////////////////////////////////////////////////
     // member functions
 
+    uint private globalTokenID = 0;
+
+    function createTokens() public onlyOwner {
+        govToken = new GovToken(500 * 10 ** 18);
+        finToken = new FinToken(500 * 10 ** 18);
+        generalToken = new GeneralToken(500 * 10 ** 18);
+        techToken = new TechToken(500 * 10 ** 18);
+        // donationToken = new DonationToken(500 * 10 ** 18);
+    }
+
     // creating the member
-    function createMember(address person) public onlyOwner{
-        Members[person] =  Member(0, 0, 0, 0, 0, 100, 10);
+    function createMember(address to) public onlyOwner{
+        DAOMember.awardMember(to, "Welcome to Toronto DAOs"); // change to Json for Nouns
+        Members[to].wallet6551 = ERC6551AccountLib.computeAddress(0x02101dfB77FDE026414827Fdc604ddAF224F0921, 
+        0x75848f657094da2D4cCc5ceAFcb3006ABD201949, 
+        100, 0x9a745B0429a35958aEDFDb80b4bF5A66aC0a2D54, globalTokenID, 0); // change tokencontract after deployed
+        Members[to].redeemLimit = 100; 
+        globalTokenID ++;
     }
     
     // rewarding members for completing tasks
-    function redeemTask(uint taskID, address member) public onlyOwner {
-        string memory taskName = Tasks[taskID].eventType;
-        if(keccak256(abi.encodePacked(taskName)) == keccak256(abi.encodePacked("technology"))){
-            Members[member].technology += Tasks[taskID].reward;
-        } else if(keccak256(abi.encodePacked(taskName)) == keccak256(abi.encodePacked("governance"))){
-            Members[member].governance += Tasks[taskID].reward;
-        } else if(keccak256(abi.encodePacked(taskName)) == keccak256(abi.encodePacked("finance"))){
-            Members[member].finance += Tasks[taskID].reward;
+    function redeemTask(uint taskID, address payable to) public onlyOwner {
+        TDAO.experienceType rewardType = Tasks[taskID].eventType;
+        if(rewardType == TDAO.experienceType.technology){
+            techToken.transfer(Members[to].wallet6551, Tasks[taskID].reward);
+        } else if(rewardType == TDAO.experienceType.finance){
+            finToken.transfer(Members[to].wallet6551, Tasks[taskID].reward);
+        } else if(rewardType == TDAO.experienceType.governance){
+            govToken.transfer(Members[to].wallet6551, Tasks[taskID].reward);
+        } else if(rewardType == TDAO.experienceType.general){
+            generalToken.transfer(Members[to].wallet6551, Tasks[taskID].reward);
         } else{
-            Members[member].general += Tasks[taskID].reward;
+            // donationToken.transfer(to, Tasks[taskID].reward);
         }
-
-        completedTasks[member].push(taskID);
+        completedTasks[to].push(taskID);
     }
 
     // redeem donation points
-    function redeemDonation(address sender) public {
-        require(Members[sender].technology >= Members[sender].donationThreshold || 
-        Members[sender].governance >= Members[sender].donationThreshold ||
-        Members[sender].finance >= Members[sender].donationThreshold ||
-        Members[sender].general >= Members[sender].donationThreshold, "you do not have enough experiences to redeem");
-        
-        Members[sender].donation += Members[sender].redeemableAmount;
-        Members[sender].donationThreshold = 10 * Members[sender].donationThreshold;
-        Members[sender].redeemableAmount = 10 * Members[sender].redeemableAmount;
+    function redeemDonation(address payable to) public {
+        require(govToken.balanceOf(Members[to].wallet6551) >= Members[to].redeemLimit ||
+        finToken.balanceOf(Members[to].wallet6551) >= Members[to].redeemLimit ||
+        generalToken.balanceOf(Members[to].wallet6551) >= Members[to].redeemLimit ||
+        techToken.balanceOf(Members[to].wallet6551) >= Members[to].redeemLimit
+        , "you do not have enough experiences to redeem");
+
+        donationToken.transfer(to, Members[to].redeemLimit);
+        Members[to].redeemLimit = 10 * Members[to].redeemLimit;
+    }
+
+    function getTechnology(address to) public view returns (uint) {
+        return techToken.balanceOf(Members[to].wallet6551);
+    }
+    function getGeneral(address to) public view returns (uint) {
+        return generalToken.balanceOf(Members[to].wallet6551);
+    }
+    function getFinance(address to) public view returns (uint) {
+        return finToken.balanceOf(Members[to].wallet6551);
+    }
+    function getGovernance(address to) public view returns (uint) {
+        return govToken.balanceOf(Members[to].wallet6551);
+    }
+    function getDonation(address to) public view returns (uint) {
+        return donationToken.balanceOf(Members[to].wallet6551);
     }
 
     ////////////////////////////////////////////////////////////////////////////////
     // task functions
-    function createTask(string memory eventName, string memory eventType, address validator, uint reward) public onlyOwner{
+    function createTask(string memory eventName, TDAO.experienceType eventType, address validator, uint reward) public onlyOwner{
         Tasks[globalEventID] =  Task(eventName, eventType, globalEventID, validator, reward);
-        // emit taskDetail(eventName, eventType, globalEventID, validator, reward);
-        globalEventID ++;
+        globalEventID++;
     }
 
     ////////////////////////////////////////////////////////////////////////////////
@@ -108,5 +161,9 @@ contract TDAO is Ownable {
 
     function fetchMemberReputation(address member) public view returns(Member memory ){
         return Members[member];
+    }
+
+    function fetchTasks(uint taskID) public view returns(Task memory ){
+        return Tasks[taskID];
     }
 }
