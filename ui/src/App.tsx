@@ -13,7 +13,10 @@ function App() {
     <>
       <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand href="#home">Toronto DAO</Navbar.Brand>
+          <Navbar.Brand href="#home">
+            <img src="./cn-tower-logo.png" alt="..." width="30" height="24" className="d-inline-block align-text-top"></img>
+            Toronto DAO
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
